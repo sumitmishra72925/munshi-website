@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Munshi — Coming Soon</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0d1117;
+        --surface: #161b22;
+        --accent: #f0a500;
+        --accent-dim: rgba(240, 165, 0, 0.12);
+        --text-primary: #f0ede6;
+        --text-muted: #8b949e;
+        --border: rgba(240, 165, 0, 0.2);
+      }
+
+      html,
+      body {
+        height: 100%;
+        background: var(--bg);
+        color: var(--text-primary);
+        font-family: "DM Sans", sans-serif;
+        overflow-x: hidden;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+        position: relative;
+      }
+
+      /* Subtle background grid */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(240, 165, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(240, 165, 0, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Warm glow orb */
+      body::after {
+        content: "";
+        position: fixed;
+        top: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 700px;
+        height: 500px;
+        background: radial-gradient(
+          ellipse,
+          rgba(240, 165, 0, 0.07) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 680px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .badge {
+        display: inline-block;
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: var(--accent-dim);
+        border: 1px solid var(--border);
+        padding: 6px 16px;
+        border-radius: 100px;
+        margin-bottom: 2rem;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(52px, 10vw, 80px);
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.3em;
+        animation: fadeUp 0.6s 0.1s ease both;
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .tagline {
+        font-family: "DM Sans", sans-serif;
+        font-size: clamp(14px, 2.5vw, 17px);
+        font-weight: 300;
+        color: var(--text-muted);
+        line-height: 1.7;
+        max-width: 460px;
+        margin: 0 auto 3rem;
+        animation: fadeUp 0.6s 0.2s ease both;
+      }
+
+      .tagline strong {
+        color: var(--text-primary);
+        font-weight: 400;
+      }
+
+      .divider {
+        width: 48px;
+        height: 1px;
+        background: var(--accent);
+        margin: 0 auto 3rem;
+        opacity: 0.5;
+        animation: fadeUp 0.6s 0.25s ease both;
+      }
+
+      .contact-card {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.8rem 2.8rem;
+        animation: fadeUp 0.6s 0.3s ease both;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          transparent
+        );
+      }
+
+      .contact-label {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .contact-phone {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(22px, 5vw, 30px);
+        color: var(--text-primary);
+        letter-spacing: 0.02em;
+      }
+
+      .contact-phone a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .contact-phone a:hover {
+        color: var(--accent);
+      }
+
+      .contact-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 300;
+      }
+
+      .footer {
+        margin-top: 3rem;
+        font-size: 12px;
+        color: var(--text-muted);
+        opacity: 0.5;
+        animation: fadeUp 0.6s 0.4s ease both;
+        letter-spacing: 0.04em;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .contact-card {
+          padding: 1.4rem 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="badge">✦ &nbsp; Something big is coming</div>
+      <h1 class="logo">Munshi<span>.</span></h1>
+      <p class="tagline">
+        Your <strong>AI-powered shop assistant</strong> — tracking credit,
+        stock, and daily accounts right from <strong>WhatsApp</strong>. No app.
+        No forms. Just chat.
+      </p>
+      <div class="divider"></div>
+      <div class="contact-card">
+        <p class="contact-label">Get in touch</p>
+        <p class="contact-phone">
+          <a href="tel:+917557585230">+91 75575 85230</a>
+        </p>
+        <p class="contact-sub">WhatsApp &amp; calls welcome</p>
+      </div>
+      <p class="footer">digitalmunshi.co.in &nbsp;·&nbsp; Launching soon</p>
+    </div>
+  </body>
+</html>
